@@ -21,8 +21,9 @@ app.use('/post',Postroutes);
 app.use('/upload',uploadRoutes);
 app.use('/users',userprofile)
 //app.use(middle);
-app.get('/',verifyLogin,(req,res)=>{
-    res.send("hiiii");
+app.get('/',(req,res)=>{
+    res.redirect('/auth/login');
+
   
 })
 

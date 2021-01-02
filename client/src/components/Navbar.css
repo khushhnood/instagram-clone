@@ -1,0 +1,17 @@
+.logo{
+height: 20px;
+width: 40px;
+}
+
+.nev{
+    
+    width: 80%;
+}
+
+.nav-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-bottom: 1px solid black;
+}

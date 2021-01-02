@@ -1,0 +1,4 @@
+.commentInput:focus{
+   border-bottom: 2px solid blue;
+   outline: none;
+}

@@ -1,0 +1,23 @@
+.profileContainer{
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+.profileList{
+    margin-right: 30px;
+    font-size: 16px;
+}
+
+.profileList:first-child{
+    margin-left: 0;
+}
+
+ul{
+    list-style: none;
+}
+
+.profileName{
+    font-weight: 300;
+    font-size: 28px;
+}

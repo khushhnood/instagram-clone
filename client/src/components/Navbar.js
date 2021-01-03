@@ -5,14 +5,16 @@ import logo from '../assets/insta-logo.png'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import './Navbar.css';
+
 import DehazeIcon from '@material-ui/icons/Dehaze';
+import SearchIcon from '@material-ui/icons/Search';
 
 function Navbar() {
 
      
      const history = useHistory();
      const {state,dispatch} = useContext(UserContext);
-     
+    
       
      const handleClick = async()=>{
        localStorage.clear();
@@ -44,7 +46,10 @@ function Navbar() {
                   </li>
                   
 
-                  {state?[<li key="1" className="nav-item">
+                  {state?[<li key="0" className="nav-item">
+                         <Link className="navbar-brand" to="/allusers"><SearchIcon /></Link>
+                         
+                          </li>,<li key="1" className="nav-item">
                          <Link className="navbar-brand" to="/profile">{state?state.name:<h3>name</h3>}</Link>
                        
                        </li>,<li key="2" className="nav-item">

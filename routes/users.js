@@ -19,6 +19,22 @@ router.get('/profile/:id',verifyLogin,async(req,res)=>{
 
 })
 
+router.get('/all',verifyLogin,async(req,res)=>{
+    try {
+        await User.find({}).sort("name").then((result)=>{
+           
+                res.json({users : result});
+            
+
+            
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(422).json({error:error})
+    }
+})
+
 router.put('/follow',verifyLogin,async(req,res)=>{
     const followid =  req.body.followid;
   const finduser =   await User.findByIdAndUpdate({_id:followid},{

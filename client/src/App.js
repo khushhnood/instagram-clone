@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Signup from './components/Signup'
 import Profile from './components/Profile'
 import Home from './components/Home'
-
+import AllUsers from './components/AllUsers'
 import CreatePostGit from './components/CreatePostGit'
 import UserProfile from './components/UserProfile'
 import EditProfile from './components/EditProfile'
@@ -58,6 +58,10 @@ const Routing = ()=>{
     <Route path="/edit">
     <Navbar/>
     <EditProfile />
+    </Route>
+    <Route path="/allusers">
+    <Navbar/>
+    <AllUsers />
     </Route>
     </Switch>
   )

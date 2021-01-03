@@ -114,7 +114,9 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
                          
                      </form>
                      <div className="container-fluid " >
-                        <p className="font-weight-bold" ><ReactTimeAgo date={date} locale="en-US" /></p>
+                        <p className="font-weight-bold">
+                            <ReactTimeAgo date={date} locale="en-US" />
+                            </p>
                         
                      </div>
                 </div>

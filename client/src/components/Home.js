@@ -19,7 +19,8 @@ function Home() {
                }
              })
             
-             
+             console.log("postdata");
+             console.log(postdata)
              setData(postdata.data.message)
             
              
@@ -38,7 +39,7 @@ function Home() {
             <div className="container d-flex flex-column justify-content-center align-items-center my-5" style={{maxWidth:"600px"}}>
                {state ? data.map((item,index)=>(
 
-                     <Card stateId={state._id} comments={item.comments} likes={item.likes} profile={item.postedBy.profile} key={index} name={item.postedBy.name} photo={item.photo} caption={item.caption} id={item.postedBy._id} postId={item._id}
+                     <Card stateId={state._id} timestamp={item.createdAt} comments={item.comments} likes={item.likes} profile={item.postedBy.profile} key={index} name={item.postedBy.name} photo={item.photo} caption={item.caption} id={item.postedBy._id} postId={item._id}
                          liked={item.likes.filter(like=>like === state._id).length >0 ? true : false} />
                )):<h1>Welcome ! 👋<br/> Please Login to continue..</h1>}
             </div>

@@ -5,12 +5,14 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import {Link} from 'react-router-dom'
 import './card.css'
+import ReactTimeAgo from 'react-time-ago'
 
 import axios from 'axios'
 
 
 
-function Card({name ,likes,profile, photo , caption , liked , postId , comments,id,stateId}) {
+
+function Card({name ,likes,profile, photo , caption , liked , postId , comments,id,stateId,timestamp}) {
 
     const [comment,setComment] = useState(comments);
     const [like,setLike] = useState(liked);
@@ -56,7 +58,7 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
       // setComment(commented.data.comments);
     }
 
-    
+    const date = new Date(timestamp);
 
 
     return (
@@ -111,6 +113,10 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
                              </div>
                          
                      </form>
+                     <div className="container-fluid " >
+                        <p className="font-weight-bold" ><ReactTimeAgo date={date} locale="en-US" /></p>
+                        
+                     </div>
                 </div>
             </div>
         </div>

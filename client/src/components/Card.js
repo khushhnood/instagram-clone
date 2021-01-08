@@ -3,6 +3,8 @@ import profilePic from '../assets/profile.png'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import {Link} from 'react-router-dom'
 import './card.css'
 import ReactTimeAgo from 'react-time-ago'
@@ -18,6 +20,7 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
     const [like,setLike] = useState(liked);
     const [count,setCount]  = useState(likes.length);
     const [newcomment,setNewcomment] = useState('');
+    const [hide,setHide] = useState(false);
 
    
 
@@ -41,6 +44,7 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
    }
 
    const handleSubmit = async(e)=>{
+       setHide(true)
        e.preventDefault();
        const commented = await axios.put('/post/comment',{
            text : newcomment,
@@ -52,10 +56,36 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
        })
        if(commented){
            setComment(commented.data.comments)
+           setNewcomment('');
+           setHide(false);
        }
 
        
       // setComment(commented.data.comments);
+    }
+
+    const deleteComment = async(commentId,postId)=>{
+        try {
+            const deleted = await axios.put('/post/uncomment',{
+                commentId : commentId,
+                postId : postId
+            },{
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("jwt")
+                 }
+               })
+
+
+               if(deleted){
+                   console.log('deleted')
+                   console.log(deleted);
+                   setComment(deleted.data.comments);
+
+               }
+        } catch (error) {
+            console.log("error");
+            console.log(error)
+        }
     }
 
     const date = new Date(timestamp);
@@ -87,7 +117,7 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
                          </button>
                       
                        <ChatBubbleOutlineIcon style={{color:"black",marginLeft:"8px"}} />
-                       <span className="display-5" >{comments.length}</span>
+                       <span className="display-5" >{comment?comment.length:comments.length}</span>
                      </div>
                      <div>
                          <h6>Liked by {count} others</h6>
@@ -98,8 +128,9 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
                      <div>
                        
                        {comment.map((c,index)=>(
-                           <div key={index}  className="card-text">
-                            <p > {c.postedBy.name} : {c.text} </p>
+                           <div key={index}  className="card-text d-flex w-100">
+                            <p > {c.postedBy.name} : {c.text}     </p> 
+                            {stateId===c.postedBy._id?<button onClick={()=>deleteComment(c._id,postId)} className='ml-auto' style={{fontSize:'18px',border:'none',background:'white'}}><DeleteIcon style={{fontSize:'18px'}} /></button>:" "}
                             </div>
                        ))}
 
@@ -109,7 +140,7 @@ function Card({name ,likes,profile, photo , caption , liked , postId , comments,
                          
                              <div className="d-flex justify-content-between">
                                  <input className="commentInput" required onChange={e=>setNewcomment(e.target.value)} value={newcomment} type="text" style={{border:"none" , height:"30px",width:"80%"}} placeholder="Add a comment..." /> 
-                                 <button type="submit" style={{border:"none",color:"blue",backgroundColor:"white"}}>Post</button>
+                                 <button type="submit" disabled={hide} style={{border:"none",color:"blue",backgroundColor:"white"}}>Post</button>
                              </div>
                          
                      </form>

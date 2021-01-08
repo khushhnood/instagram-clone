@@ -121,6 +121,26 @@ router.put('/comment',verifyLogin,async(req,res)=>{
     })
 })
 
+router.put('/uncomment',verifyLogin,async(req,res)=>{
+    const commentId = req.body.commentId;
+    console.log("comment id :",commentId)
+    await PostSchema.findByIdAndUpdate(req.body.postId,{
+        $pull : {comments : {_id : commentId} }
+    },{
+        new : true
+    }).populate("comments.postedBy","_id name")
+    .exec((err,result)=>{
+           if(err){
+               return res.status(422).json({
+                   error : err
+               })
+           }else{
+               res.json(result)
+           }
+    })
+})
+
+
 router.delete('/delete/:id',verifyLogin,async(req,res)=>{
     const postId = req.params.id;
 

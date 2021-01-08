@@ -201,7 +201,7 @@ function CreatePostGit() {
                                <input type="file" required  value={fileInputState} onChange={handleFileInputChange}  className="form-control" id="file" placeholder="Select jpg , jpeg , png only"/>
                           </div>
  
-                    <button onClick={notify} type="submit" className="btn btn-primary">Post</button>
+                    <button onClick={notify} disabled={loading} type="submit" className="btn btn-primary">Post</button>
                     <Toaster position="bottom-center" />
                     
                    </form>
